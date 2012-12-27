@@ -1,4 +1,4 @@
-'From Cuis 4.0 of 21 April 2012 [latest update: #1270] on 3 May 2012 at 6:33:20 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1522] on 27 December 2012 at 1:13:20 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #SpAbstractError category: #'Sport-Exceptions'!
 Error subclass: #SpAbstractError
@@ -154,7 +154,7 @@ SpWeakArray class
 !SpExceptionContext commentStamp: '<historical>' prior: 0!
 Exceptions vary quite a bit between Smalltalk implementaions, despite the presence of the ANSI Smalltalk specification.  This class representss a portable exception context in which a block can be executed, exceptions trapped and handlers defined.!
 
-!SpFilename commentStamp: '<historical>' prior: 0!
+!SpFilename commentStamp: 'JM 4/18/2007 16:10' prior: 0!
 A SpFilename represents a file or directory and allows operations like delete, makeDirectory, etcPart of code is copied with permission from Cincom VisualWorksInstance Variables	filename:		<String> name of a file or directory!
 
 !SpAbstractError methodsFor: 'accessing' stamp: 'BB 1/25/2006 21:52'!
