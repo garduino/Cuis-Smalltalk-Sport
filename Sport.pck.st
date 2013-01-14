@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1524] on 30 December 2012 at 7:10:19 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 14 January 2013 at 3:18:57 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #SpAbstractError category: #'Sport-Exceptions'!
 Error subclass: #SpAbstractError
@@ -1386,4 +1386,8 @@ withAll: aCollection
 	"^a WeakArray
 	I don't return an instance of myself at all. I return a real Weak array."
 	^ WeakArray withAll: aCollection asArray! !
+
+!String methodsFor: '*Sport' stamp: 'gsa 1/14/2013 15:16'!
+trimBlanks
+	^SpStringUtilities trimBlanksFrom: self! !
 SpEnvironment initialize!
