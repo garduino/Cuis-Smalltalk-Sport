@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 14 January 2013 at 3:18:57 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1578] on 29 January 2013 at 10:01:56 am'!
 'Description Please enter a description for this package '!
 !classDefinition: #SpAbstractError category: #'Sport-Exceptions'!
 Error subclass: #SpAbstractError
@@ -286,6 +286,11 @@ asISO8610StringOn: aStream
 day
 	^self underlyingDate day! !
 
+!SpDate methodsFor: 'accessing' stamp: 'janko 1/29/2013 10:26'!
+dayOfYear
+
+	^self underlyingDate dayOfYear! !
+
 !SpDate methodsFor: 'accessing' stamp: 'JM 4/26/2007 21:37'!
 daysInMonth
 	^self underlyingDate daysInMonth! !
@@ -333,9 +338,9 @@ weekdayIndex
 	^self underlyingDate weekdayIndex
 ! !
 
-!SpDate methodsFor: 'accessing' stamp: 'JM 4/25/2007 21:23'!
-year
-	^self underlyingDate year! !
+!SpDate methodsFor: 'accessing' stamp: 'janko 1/29/2013 09:50'!
+year	"Cuis specific"
+	^self underlyingDate yearNumber! !
 
 !SpDate class methodsFor: 'instance creation' stamp: 'JM 4/14/2007 18:45'!
 fromDays: anInteger
@@ -786,9 +791,6 @@ appendStream
 !SpFilename methodsFor: 'accessing' stamp: 'JM 4/18/2007 12:30'!
 asString
 	^self filename! !
-
-!SpFilename methodsFor: 'services' stamp: 'JM 4/18/2007 12:59'!
-directoryContents! !
 
 !SpFilename methodsFor: 'testing' stamp: 'JM 4/26/2007 15:38'!
 exists	
@@ -1386,8 +1388,4 @@ withAll: aCollection
 	"^a WeakArray
 	I don't return an instance of myself at all. I return a real Weak array."
 	^ WeakArray withAll: aCollection asArray! !
-
-!String methodsFor: '*Sport' stamp: 'gsa 1/14/2013 15:16'!
-trimBlanks
-	^SpStringUtilities trimBlanksFrom: self! !
 SpEnvironment initialize!
