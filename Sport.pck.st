@@ -339,7 +339,8 @@ weekdayIndex
 ! !
 
 !SpDate methodsFor: 'accessing' stamp: 'janko 1/29/2013 09:50'!
-year	"Cuis specific"
+year
+	"Cuis specific"
 	^self underlyingDate yearNumber! !
 
 !SpDate class methodsFor: 'instance creation' stamp: 'JM 4/14/2007 18:45'!
