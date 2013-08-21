@@ -1,5 +1,6 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1578] on 29 January 2013 at 10:01:56 am'!
+'From Cuis 4.2 of 25 July 2013 [latest update: #1806] on 21 August 2013 at 6:32:03.196841 pm'!
 'Description Please enter a description for this package '!
+!provides: 'Sport' 1 0!
 !classDefinition: #SpAbstractError category: #'Sport-Exceptions'!
 Error subclass: #SpAbstractError
 	instanceVariableNames: 'parameter'
@@ -8,6 +9,26 @@ Error subclass: #SpAbstractError
 	category: 'Sport-Exceptions'!
 !classDefinition: 'SpAbstractError class' category: #'Sport-Exceptions'!
 SpAbstractError class
+	instanceVariableNames: ''!
+
+!classDefinition: #SpError category: #'Sport-Exceptions'!
+SpAbstractError subclass: #SpError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Sport-Exceptions'!
+!classDefinition: 'SpError class' category: #'Sport-Exceptions'!
+SpError class
+	instanceVariableNames: ''!
+
+!classDefinition: #SpSocketError category: #'Sport-Sockets'!
+SpError subclass: #SpSocketError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Sport-Sockets'!
+!classDefinition: 'SpSocketError class' category: #'Sport-Sockets'!
+SpSocketError class
 	instanceVariableNames: ''!
 
 !classDefinition: #SpDate category: #'Sport-Times'!
@@ -28,16 +49,6 @@ Object subclass: #SpEnvironment
 	category: 'Sport-Environmental'!
 !classDefinition: 'SpEnvironment class' category: #'Sport-Environmental'!
 SpEnvironment class
-	instanceVariableNames: ''!
-
-!classDefinition: #SpError category: #'Sport-Exceptions'!
-SpAbstractError subclass: #SpError
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Sport-Exceptions'!
-!classDefinition: 'SpError class' category: #'Sport-Exceptions'!
-SpError class
 	instanceVariableNames: ''!
 
 !classDefinition: #SpExceptionContext category: #'Sport-Exceptions'!
@@ -98,16 +109,6 @@ SpSocketAddress subclass: #SpIPAddress
 	category: 'Sport-Sockets'!
 !classDefinition: 'SpIPAddress class' category: #'Sport-Sockets'!
 SpIPAddress class
-	instanceVariableNames: ''!
-
-!classDefinition: #SpSocketError category: #'Sport-Sockets'!
-SpError subclass: #SpSocketError
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Sport-Sockets'!
-!classDefinition: 'SpSocketError class' category: #'Sport-Sockets'!
-SpSocketError class
 	instanceVariableNames: ''!
 
 !classDefinition: #SpStringUtilities category: #'Sport-Environmental'!
@@ -838,63 +839,6 @@ named: aString
 
 	^self new named: aString! !
 
-!SpIPAddress methodsFor: 'initialize-release' stamp: 'JM 4/14/2007 19:44'!
-host: aHostAddress port: aPortNumber 
-	hostAddress := aHostAddress.
-	portNumber := aPortNumber! !
-
-!SpIPAddress methodsFor: 'accessing' stamp: 'JM 4/14/2007 19:44'!
-hostAddress
-	^ hostAddress! !
-
-!SpIPAddress methodsFor: 'printing' stamp: 'JM 4/14/2007 19:46'!
-hostAddressString
-	| targetStream |
-	targetStream := String new writeStream.
-
-	targetStream
-		nextPutAll: (self hostAddress at: 1) printString;
-		nextPut: $.;
-		nextPutAll: (self hostAddress at: 2) printString;
-		nextPut: $.;
-		nextPutAll: (self hostAddress at: 3) printString;
-		nextPut: $.;
-		nextPutAll: (self hostAddress at: 4) printString.
-	^targetStream contents! !
-
-!SpIPAddress methodsFor: 'accessing' stamp: 'JM 4/14/2007 19:45'!
-portNumber
-	^ portNumber! !
-
-!SpIPAddress class methodsFor: 'instance creation' stamp: 'mivsek 8/17/2007 16:24'!
-connectToServerOnHost: hostName port: portNumber
-	"^an OSkSocket 
-	I return a new instance of myself which represents a socket connector
-	to a server listening on portNumber at hostName."
-	| newSocket |
-	newSocket := self newTCPSocket.
-	newSocket connectTo: (SpIPAddress hostName: hostName port: portNumber).
-	^ newSocket! !
-
-!SpIPAddress class methodsFor: 'instance creation' stamp: 'JM 4/14/2007 19:41'!
-host: aHostAddress port: aPortNumber
-	"^a SpSocketAddress
-	I create a new instance of myself which represents an IP address/port
-	combination (a TCP/IP address, really). Note that aHostAddress must be a
-	four element byte array (e.g. #[127 0 0 1]) ."
-	
-	^ self new host: aHostAddress port: aPortNumber! !
-
-!SpIPAddress class methodsFor: 'instance creation' stamp: 'JM 4/14/2007 19:42'!
-hostName: aHostNameString port: aPortNumber
-	"^a SpSocketAddress
-	I translate aHostNameString to an IP address and then create
-	a new instance of myself with >>host:port:"	
-		
-	^ self
-		host: (NetNameResolver addressForName: aHostNameString)
-		port: aPortNumber! !
-
 !SpSocket methodsFor: 'services-status' stamp: 'JM 4/14/2007 21:14'!
 accept
 	"^a SpSocket
@@ -1155,6 +1099,63 @@ on: subjectAddress for: aSocket
 	are more kinds of socket address supported."
 	
 	^SpIPAddress host: subjectAddress hostAddress port: subjectAddress port! !
+
+!SpIPAddress methodsFor: 'initialize-release' stamp: 'JM 4/14/2007 19:44'!
+host: aHostAddress port: aPortNumber 
+	hostAddress := aHostAddress.
+	portNumber := aPortNumber! !
+
+!SpIPAddress methodsFor: 'accessing' stamp: 'JM 4/14/2007 19:44'!
+hostAddress
+	^ hostAddress! !
+
+!SpIPAddress methodsFor: 'printing' stamp: 'JM 4/14/2007 19:46'!
+hostAddressString
+	| targetStream |
+	targetStream := String new writeStream.
+
+	targetStream
+		nextPutAll: (self hostAddress at: 1) printString;
+		nextPut: $.;
+		nextPutAll: (self hostAddress at: 2) printString;
+		nextPut: $.;
+		nextPutAll: (self hostAddress at: 3) printString;
+		nextPut: $.;
+		nextPutAll: (self hostAddress at: 4) printString.
+	^targetStream contents! !
+
+!SpIPAddress methodsFor: 'accessing' stamp: 'JM 4/14/2007 19:45'!
+portNumber
+	^ portNumber! !
+
+!SpIPAddress class methodsFor: 'instance creation' stamp: 'mivsek 8/17/2007 16:24'!
+connectToServerOnHost: hostName port: portNumber
+	"^an OSkSocket 
+	I return a new instance of myself which represents a socket connector
+	to a server listening on portNumber at hostName."
+	| newSocket |
+	newSocket := self newTCPSocket.
+	newSocket connectTo: (SpIPAddress hostName: hostName port: portNumber).
+	^ newSocket! !
+
+!SpIPAddress class methodsFor: 'instance creation' stamp: 'JM 4/14/2007 19:41'!
+host: aHostAddress port: aPortNumber
+	"^a SpSocketAddress
+	I create a new instance of myself which represents an IP address/port
+	combination (a TCP/IP address, really). Note that aHostAddress must be a
+	four element byte array (e.g. #[127 0 0 1]) ."
+	
+	^ self new host: aHostAddress port: aPortNumber! !
+
+!SpIPAddress class methodsFor: 'instance creation' stamp: 'JM 4/14/2007 19:42'!
+hostName: aHostNameString port: aPortNumber
+	"^a SpSocketAddress
+	I translate aHostNameString to an IP address and then create
+	a new instance of myself with >>host:port:"	
+		
+	^ self
+		host: (NetNameResolver addressForName: aHostNameString)
+		port: aPortNumber! !
 
 !SpStringUtilities class methodsFor: 'services-encoding' stamp: 'JM 4/14/2007 19:06'!
 bytes: subjectBytes asStringUsingEncodingNames: anEncodingName
