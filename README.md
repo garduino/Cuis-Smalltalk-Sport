@@ -1,7 +1,7 @@
 Cuis-Sport
 ==========
 
-Sport for Cuis 4.1
+Sport for Cuis 4.2
 
 Ported from http://www.squeaksource.com/SPort.html (Version 2.0.31).
 
